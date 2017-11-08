@@ -6,8 +6,7 @@ import os
 
 class LED():
     def __init__(self, pattern):
-        self._speed = 0
-        self._pauseSpeed = 0
+        self.__LED_PIN = 21
         self.__morse = {'A': '.-',     'B': '-...',   'C': '-.-.',
         'D': '-..',    'E': '.',      'F': '..-.',
         'G': '--.',    'H': '....',   'I': '..',
@@ -26,10 +25,9 @@ class LED():
         self.pattern = self.__convertString(pattern)
 
         GPIO.setmode(GPIO.BCM)
-        LED_PIN = 21
-        GPIO.setup(LED_PIN, GPIO.OUT)
-        GPIO.output(LED_PIN, GPIO.HIGH)
-        GPIO.output(LED_PIN, GPIO.LOW)
+        GPIO.setup(self.__LED_PIN, GPIO.OUT)
+        GPIO.output(self.__LED_PIN, GPIO.HIGH)
+        GPIO.output(self.__LED_PIN, GPIO.LOW)
 
     def __convertString(self, textString):
         morseString = []
@@ -58,13 +56,13 @@ class LED():
             for chars in pureChars:
                 time.sleep(0.5)
                 if(chars == '.'):
-                    GPIO.output(LED_PIN, GPIO.HIGH)
+                    GPIO.output(self.__LED_PIN, GPIO.HIGH)
                     time.sleep(0.25)
-                    GPIO.output(LED_PIN, GPIO.LOW)
+                    GPIO.output(self.__LED_PIN, GPIO.LOW)
                 elif(chars == '-'):
-                    GPIO.output(LED_PIN, GPIO.HIGH)
+                    GPIO.output(self.__LED_PIN, GPIO.HIGH)
                     time.sleep(0.5)
-                    GPIO.output(LED_PIN, GPIO.LOW)
+                    GPIO.output(self.__LED_PIN, GPIO.LOW)
                 elif(chars == '&&'):
                     time.sleep(2)
                 elif(chars == '&'):
